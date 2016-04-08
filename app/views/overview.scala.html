@@ -1,0 +1,142 @@
+@(mostRecentlyAddedPublications: List[Publications], mostRecentlyUsedPublications: List[Publications], mostPopularPublications: List[Publications], topics: List[PublicationTopic])
+@import helper._
+@scripts = {
+	<style type="text/css">
+        /* .floated_img
+		{
+		    position: relative;
+  			left: 50%;
+		} */
+	</style>
+}
+@main("Overview") {
+
+    <h1>Overview</h1>
+    <ul class="nav nav-tabs">
+	  <li class="active"><a href="#tab4" data-toggle="tab">Topic</a></li>
+	  <li><a href="#tab2" data-toggle="tab">Statistics</a></li>
+	  <li><a href="#tab1" data-toggle="tab">Most Recently Added</a></li>
+	  <!-- <li><a href="#tab3" data-toggle="tab">Most Popular</a></li> -->
+	  
+	</ul>
+	<div class="panel-body">
+      <div class="tab-content col-xs-12 col-xs-offset-0">
+		<div class="tab-pane fade" id="tab1">
+			<h2>@mostRecentlyAddedPublications.size() Most Recently Added Publications</h2>
+			<table class="table table-striped table-bordered table-condensed ex2 tablesorter" id = "mostRecentlyAddedPublications">
+
+				<thead>
+				<tr class="text-center">
+					<th style = "vertical-align: middle;" class="col-md-5">Publication Name</th>
+					<th style = "vertical-align: middle;" class="col-md-3">Authors</th>
+					<th style = "vertical-align: middle;" class="col-md-3">Publication Channel</th>
+					<th style = "vertical-align: middle;" class="col-md-1">Year</th>
+					<!-- <th style = "vertical-align: middle;" class="col-md-3">FileID</th> -->
+				</tr>
+				</thead>
+				<tbody>
+				@for(publication <- mostRecentlyAddedPublications) {
+				<tr>
+			
+					<td><span class="@publication.getPaperTitle() editable" data-name='paperTitle'>
+							<a href = "/publication/publicationPanel/@publication.getId()">@publication.getPaperTitle() </span></td>
+							
+					<td><span class="@publication.getPaperTitle() editable" data-name='authors'>
+							@publication.getAuthorList() </span></td>
+							 
+					<td><span class="@publication.getPaperTitle() editable" data-name='publicationChannel'>
+							@publication.getPublicationChannel() </span></td>
+			
+					<td><span class="@publication.getPaperTitle() editable" data-name='year'>
+							@publication.getYear() </span></td>
+					
+					<!-- <td><span class="@publication.getPaperTitle() editable" data-name='fileID'>
+							<a href = "@routes.Assets.at(publication.getFileID().substring(7))" target="_blank"/>@publication.getFileID() </span></td> -->
+				</tr>
+				}
+				</tbody>
+		    </table>
+	    </div>
+	    <div class="tab-pane fade" id="tab2">
+		    <div class="floated_img" style="text-align: center">
+			    <img src="/assets/images/InstrumentCount.png" width="800" alt="Some image" align = "middle">
+			    <p align = "center">Figure1. Histogram statistics of instrument count.</p>
+			</div>
+			<br>
+			<br>
+			<div class="floated_img" style="text-align: center">
+			    <img src="/assets/images/PieChartSubtypeInstrumentCount.png" width="800" alt="Another image" align = "middle">
+			    <p align = "center">Figure2. Pie chart statistics of sub-type instrument count.</p>
+			</div>
+			<br>
+			<br>
+			<div class="floated_img" style="text-align: center">
+			    <img src="/assets/images/VariableLevel3Count.png" width="800" alt="Another image" align = "middle">
+			    <p align = "center">Figure3. Histogram statistics of variable level 3 count.</p>
+			</div>
+	    </div>
+	    <div class="tab-pane fade" id="tab3">
+	    <h2>@mostPopularPublications.size() Most Popular Publications</h2>
+			<table class="table table-striped table-bordered table-condensed ex2 tablesorter" id = "mostPopularPublications">
+				<thead>
+				<tr class="text-center">
+					<th style = "vertical-align: middle;" class="col-md-2">Publication Name</th>
+					<th style = "vertical-align: middle;" class="col-md-4">Authors</th>
+					<th style = "vertical-align: middle;" class="col-md-3">Publication Channel</th>
+					<th style = "vertical-align: middle;" class="col-md-3">Year</th>
+					<th style = "vertical-align: middle;" class="col-md-3">FileID</th>
+				</tr>
+				</thead>
+				<tbody>
+				@for(publication <- mostPopularPublications) {
+				<tr>
+			
+					<td><span class="@publication.getPaperTitle() editable" data-name='paperTitle'>
+							<a href = "/publication/publicationPanel/@publication.getId()">@publication.getPaperTitle() </span></td>
+							
+					<td><span class="@publication.getPaperTitle() editable" data-name='authors'>
+							@publication.getAuthorList() </span></td>
+							 
+					<td><span class="@publication.getPaperTitle() editable" data-name='publicationChannel'>
+							@publication.getPublicationChannel() </span></td>
+			
+					<td><span class="@publication.getPaperTitle() editable" data-name='year'>
+							@publication.getYear() </span></td>
+					
+					<td><span class="@publication.getPaperTitle() editable" data-name='fileID'>
+							<a href = "@routes.Assets.at(publication.getFileID().substring(7))" target="_blank"/>@publication.getFileID() </span></td>
+
+				</tr>
+				}
+				</tbody>
+		    </table>
+	    </div>
+	    <div class="tab-pane fade in active" id="tab4">
+	    <h1>@topics.size() Publication Topics</h1>
+		<table class="table table-striped table-bordered table-condensed ex2 tablesorter" id = "csTable">
+			<thead>
+			<tr class="text-center">
+				<th style = "vertical-align: middle;" class="col-md-3">Topic Name</th>
+				<th style = "vertical-align: middle;" class="col-md-3">Number of Publications</th>
+			</tr>
+			</thead>
+			<tbody>
+			@for(topic <- topics) {
+			<tr>
+		
+				<td><span class="@topic.getTopicName() editable" data-name='topicName'>
+				<a href = "/publication/publicationsByTopicId/@topic.getId()">@topic.getTopicName()</a>
+						 </span></td>
+						
+				<td><span class="@topic.getPublicationNum() editable" data-name='publicationNum'>
+						@topic.getPublicationNum() </span></td>
+						 
+			</tr>
+			}
+			</tbody>
+	    </table>
+	    </div>
+	   </div>
+	  </div>
+    
+}
