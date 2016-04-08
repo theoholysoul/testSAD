@@ -1,5 +1,5 @@
-public/uploadFile
-public/uploadFile/*
+public/uploadFile/json
+public/uploadFile/pdffigures
 logs
 project/project
 project/target
