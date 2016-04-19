@@ -40,6 +40,7 @@ POST 	/climateService/replaceFile								controllers.ClimateServiceController.re
 
 # Publication
 GET			/publication/publicationRegistration 					controllers.PublicationController.publicationRegistration()
+GET			/publication/factory 					                controllers.publicationRegistration.execute()
 POST		/publication/createNewPublication 						controllers.PublicationController.createNewPublication()
 GET			/publication/allPublications 							controllers.PublicationController.showAllPublications()
 GET			/publication/allPublicationTopics						controllers.PublicationController.showAllPublicationTopics()
